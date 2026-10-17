@@ -552,33 +552,48 @@ body.mode-simple #module-actions .liste-row {
 </style>
 </head>
 <body>
-<div id="bandeau-demo" style="background:#FFF4D6;border-bottom:2px solid #BA7517;color:#5a3d00;font-size:13px;padding:8px 16px">
-  <div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:center;text-align:center">
-    <span><strong>Démonstration — données fictives.</strong> Vos essais restent sur votre ordinateur, rien n'est envoyé.</span>
-    <button onclick="window.basculerGuideDemo()" id="btn-guide-demo" style="background:#085041;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer">📖 Masquer le guide</button>
-    <button onclick="window.remettreDemoAZero()" style="background:#BA7517;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer">↺ Remettre la démo à zéro</button>
-  </div>
-  <div id="guide-demo" style="max-width:980px;margin:10px auto 4px;background:#fff;border:1px solid #E8D29A;border-radius:8px;padding:12px 18px;text-align:left;line-height:1.55">
-    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;align-items:baseline;margin-bottom:6px">
-      <span style="font-weight:800;color:#085041">Essayer PICS en 6 étapes</span>
-      <a href="fiche-formation.html" target="_blank" style="color:#085041;font-weight:700">📘 Fiche de formation complète, avec exercices corrigés</a>
+<div id="bandeau-demo" style="background:#FFF4D6;border-bottom:2px solid #BA7517;color:#5a3d00;font-size:13px;padding:7px 16px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:center;text-align:center">
+  <span><strong>Démonstration — données fictives.</strong> Vos essais restent sur votre ordinateur.</span>
+  <button onclick="window.ouvrirGuideDemo(1)" style="background:#085041;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12.5px;font-weight:600;cursor:pointer">📖 Guide de démarrage</button>
+  <a href="fiche-formation.html" target="_blank" style="background:#fff;color:#085041;border:1px solid #085041;border-radius:6px;padding:4px 12px;font-size:12.5px;font-weight:600;text-decoration:none">📘 Fiche de formation</a>
+  <button onclick="window.remettreDemoAZero()" style="background:#BA7517;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12.5px;font-weight:600;cursor:pointer">↺ Remettre la démo à zéro</button>
+</div>
+<div id="guide-demo" style="display:none;position:fixed;inset:0;background:rgba(10,30,25,.55);z-index:99999;align-items:center;justify-content:center;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+  <style>
+    #guide-demo .gd-boite{background:#fff;width:820px;max-width:94vw;max-height:92vh;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.35);overflow:hidden;display:flex;flex-direction:column}
+    #guide-demo .gd-corps{padding:26px 34px 10px;overflow-y:auto}
+    #guide-demo p{font-size:16.5px;line-height:1.7;color:#22332d;margin:0 0 6px}
+    #guide-demo ol,#guide-demo ul{margin:8px 0 0 22px;font-size:16px;line-height:1.9;color:#22332d}
+    #guide-demo .ou{background:#F4F7F6;border-radius:10px;padding:14px 18px;margin:14px 0}
+    #guide-demo .voir{background:#E1F5EE;border-left:5px solid #1D9E75;border-radius:0 10px 10px 0;padding:14px 18px;margin:14px 0;font-size:16px;line-height:1.7;color:#22332d}
+    #guide-demo .ou>b,#guide-demo .voir>b{color:#085041;font-size:15px;text-transform:uppercase;letter-spacing:.04em}
+    #guide-demo .btn-pics{display:inline-block;background:#085041;color:#fff;border-radius:6px;padding:2px 10px;font-weight:700;font-size:14.5px;white-space:nowrap}
+    #guide-demo .gd-dl{flex:1;min-width:230px;background:#085041;color:#fff;border-radius:10px;padding:14px 18px;text-decoration:none;font-weight:700;font-size:16px}
+    #guide-demo .gd-dl span{font-weight:400;font-size:13px;opacity:.85}
+    #guide-demo .gd-nav{border:1px solid #cfd8d4;background:#fff;border-radius:8px;padding:9px 16px;font-weight:600;color:#085041;cursor:pointer;font-size:14px}
+    #guide-demo .gd-nav:disabled{color:#bbb;cursor:default}
+    #guide-demo .gd-suiv{background:#085041;color:#fff;border:none;border-radius:8px;padding:9px 18px;font-weight:700;cursor:pointer;font-size:14px}
+    @media (max-width:640px){
+      #guide-demo .gd-boite{width:100vw;max-width:100vw;height:100vh;max-height:100vh;border-radius:0}
+      #guide-demo .gd-corps{padding:18px 18px 8px}
+      #guide-demo .gd-titre{font-size:21px!important}
+    }
+  </style>
+  <div class="gd-boite" role="dialog" aria-modal="true" aria-label="Guide de démarrage de la démonstration">
+    <div style="background:#085041;color:#fff;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;gap:12px">
+      <div><div style="font-size:13px;opacity:.8;letter-spacing:.05em">BIENVENUE DANS LA DÉMONSTRATION DE PICS</div>
+      <div style="font-size:14px;opacity:.9;margin-top:3px">Résidence Les Tilleuls — une copropriété fictive</div></div>
+      <button onclick="window.fermerGuideDemo()" title="Fermer" style="background:none;border:none;color:#fff;font-size:26px;cursor:pointer;opacity:.85;line-height:1">✕</button>
     </div>
-    <ol style="margin:0 0 0 20px;padding:0">
-      <li><strong>Téléchargez les deux fichiers du syndic d'exemple :</strong>
-        <a href="depenses_demo.csv" download style="color:#085041;font-weight:700">📥 depenses_demo.csv</a> (les dépenses de l'année) et
-        <a href="comparatif_budget_realise_demo.csv" download style="color:#085041;font-weight:700">📥 comparatif_budget_realise_demo.csv</a> (le budget comparé aux dépenses).
-        Ce sont les fichiers que le syndic met à disposition sur son site.</li>
-      <li><strong>Contrôlez les dépenses du syndic.</strong> Cliquez sur <strong>💾 Données</strong> (en haut à droite), puis sur <strong>💶 Rapprocher les dépenses</strong>, et choisissez <em>depenses_demo.csv</em>.
-        L'encadré « Contrôle des dépenses de l'exercice » montre que les 136 dépenses sont examinées ;
-        le rapport signale ensuite les travaux faits mais pas encore facturés, les dépenses que le conseil syndical ne suit pas, et les autres frais à vérifier (à cocher ✔ au fur et à mesure).</li>
-      <li><strong>Contrôlez les contrats.</strong> Fermez le rapport, cliquez de nouveau sur <strong>💾 Données</strong>, puis sur <strong>📑 Rapprocher les contrats</strong>, avec le <em>même fichier</em>.
-        Le « Journal des contrats » compare ce qui a été facturé au montant de chaque contrat : ici, l'ascenseur et la chaufferie ont été facturés plus que prévu.
-        Le rapport signale aussi les dépenses sans contrat suivi, comme un abonnement encore facturé par l'ancien prestataire de l'ascenseur.</li>
-      <li><strong>Suivez le budget.</strong> <strong>💾 Données</strong> → <strong>📊 Suivi budgétaire</strong>, avec <em>comparatif_budget_realise_demo.csv</em> : budget de l'année, dépenses déjà faites, postes hors budget.</li>
-      <li><strong>Parcourez le suivi du conseil syndical</strong> avec les onglets : <strong>Actions</strong> (travaux, devis, factures, durée de réalisation), <strong>Réunions</strong> (ordre du jour, compte rendu),
-        <strong>Non-conformités</strong>, <strong>Prestataires</strong>, <strong>Contacts</strong>, <strong>Documents</strong>. Chaque rapport a un bouton 🖨 Imprimer.</li>
-      <li><strong>Modifiez, ajoutez, supprimez librement.</strong> Le bouton <strong>↺ Remettre la démo à zéro</strong> redonne les données de départ.</li>
-    </ol>
+    <div class="gd-corps" id="gd-corps"></div>
+    <div style="border-top:1px solid #e4ebe8;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <a href="fiche-formation.html" target="_blank" style="color:#085041;font-weight:600;font-size:14px;text-decoration:none">📘 Fiche de formation</a>
+      <div id="gd-points"></div>
+      <div style="display:flex;gap:10px">
+        <button class="gd-nav" id="gd-prec" onclick="window.ouvrirGuideDemo(window._etapeGuide - 1)">← Précédent</button>
+        <button class="gd-suiv" id="gd-suiv" onclick="window._suivantGuideDemo()">Suivant →</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -8766,7 +8781,7 @@ window.fermerGuide = function() {
 
 window._guideContenu = function(module) {
   var guides = {};
-  guides['bienvenue'] = '<div style="text-align:center;padding:10px 0 16px"><div style="font-size:40px">🌿</div><div style="font-size:20px;font-weight:800;color:#085041;margin-top:6px">Bienvenue dans PICS</div><div style="font-size:13px;color:#888;margin-top:2px">Pilotage Immobilier Copropriété Syndic</div></div><div style="background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:8px;padding:12px 16px;margin-bottom:12px;font-size:13px;line-height:1.6"><strong style="color:#085041">🛡️ Sûr et confidentiel</strong><br>PICS est un fichier HTML autonome — <strong>aucune installation, aucun serveur, aucun compte</strong>. Il ne contient aucun code malveillant et ne se connecte jamais à internet. Vos données restent <strong>uniquement sur votre ordinateur</strong>, dans la mémoire de votre navigateur. Rien ne part, rien n&#39;est partagé.</div><div style="background:#E6F1FB;border-left:4px solid #378ADD;border-radius:8px;padding:12px 16px;margin-bottom:12px;font-size:13px;line-height:1.6"><strong style="color:#378ADD">💾 Sauvegarde de vos données</strong><br>Vos données sont sauvegardées automatiquement dans votre navigateur à chaque modification et toutes les 5 minutes.<br><br>⚠️ <strong>Attention : vider le cache du navigateur efface toutes vos données.</strong><br>Pensez à exporter régulièrement vos données (<strong>💾 Données → ⬇️ Exporter</strong>) : ce fichier JSON est votre sauvegarde.<br><br>↩️ <strong>Revenir à l&#39;état précédent</strong> dépanne d&#39;une fausse manœuvre : PICS met vos données de côté au début de chaque journée de travail. Mais cet état vit dans ce navigateur, et ne remonte pas au-delà de votre dernière séance — il ne remplace pas l&#39;export.</div><div style="background:#FAEEDA;border-left:4px solid #BA7517;border-radius:8px;padding:12px 16px;margin-bottom:12px;font-size:13px;line-height:1.6"><strong style="color:#BA7517">🖥️ Fonctionne partout</strong><br>Chrome, Edge, Firefox, Safari — PC ou tablette. Sans installation, sans connexion internet.</div><div style="background:#F8F7F4;border-radius:8px;padding:12px 16px;font-size:13px"><strong>Les 6 modules :</strong><br><br>📊 <strong>Tableau de bord</strong> — Vue d&#39;ensemble<br>📅 <strong>Réunions</strong> — CS, AG, entretiens<br>🎯 <strong>Actions</strong> — Tâches et travaux<br>🔧 <strong>Non-conformités</strong> — Problèmes et litiges<br>🏢 <strong>Prestataires</strong> — Entreprises et contacts<br>📁 <strong>Documents</strong> — Contrats et liens<br><br>🔧 et 📁 sont masqués au premier lancement — cliquez sur <strong>⋯ Autres modules</strong> pour les afficher.</div>';
+  guides['bienvenue'] = '<div style="text-align:center;padding:10px 0 16px"><div style="font-size:40px">🌿</div><div style="font-size:20px;font-weight:800;color:#085041;margin-top:6px">Bienvenue dans PICS</div><div style="font-size:13px;color:#888;margin-top:2px">Pilotage Intelligent Copropriété Syndic</div></div><div style="background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:8px;padding:12px 16px;margin-bottom:12px;font-size:13px;line-height:1.6"><strong style="color:#085041">🛡️ Sûr et confidentiel</strong><br>PICS est un fichier HTML autonome — <strong>aucune installation, aucun serveur, aucun compte</strong>. Il ne contient aucun code malveillant et ne se connecte jamais à internet. Vos données restent <strong>uniquement sur votre ordinateur</strong>, dans la mémoire de votre navigateur. Rien ne part, rien n&#39;est partagé.</div><div style="background:#E6F1FB;border-left:4px solid #378ADD;border-radius:8px;padding:12px 16px;margin-bottom:12px;font-size:13px;line-height:1.6"><strong style="color:#378ADD">💾 Sauvegarde de vos données</strong><br>Vos données sont sauvegardées automatiquement dans votre navigateur à chaque modification et toutes les 5 minutes.<br><br>⚠️ <strong>Attention : vider le cache du navigateur efface toutes vos données.</strong><br>Pensez à exporter régulièrement vos données (<strong>💾 Données → ⬇️ Exporter</strong>) : ce fichier JSON est votre sauvegarde.<br><br>↩️ <strong>Revenir à l&#39;état précédent</strong> dépanne d&#39;une fausse manœuvre : PICS met vos données de côté au début de chaque journée de travail. Mais cet état vit dans ce navigateur, et ne remonte pas au-delà de votre dernière séance — il ne remplace pas l&#39;export.</div><div style="background:#FAEEDA;border-left:4px solid #BA7517;border-radius:8px;padding:12px 16px;margin-bottom:12px;font-size:13px;line-height:1.6"><strong style="color:#BA7517">🖥️ Fonctionne partout</strong><br>Chrome, Edge, Firefox, Safari — PC ou tablette. Sans installation, sans connexion internet.</div><div style="background:#F8F7F4;border-radius:8px;padding:12px 16px;font-size:13px"><strong>Les 6 modules :</strong><br><br>📊 <strong>Tableau de bord</strong> — Vue d&#39;ensemble<br>📅 <strong>Réunions</strong> — CS, AG, entretiens<br>🎯 <strong>Actions</strong> — Tâches et travaux<br>🔧 <strong>Non-conformités</strong> — Problèmes et litiges<br>🏢 <strong>Prestataires</strong> — Entreprises et contacts<br>📁 <strong>Documents</strong> — Contrats et liens<br><br>🔧 et 📁 sont masqués au premier lancement — cliquez sur <strong>⋯ Autres modules</strong> pour les afficher.</div>';
   guides['dashboard'] = '<p style="font-size:13px;color:#888;margin-bottom:14px">Vue d&#39;ensemble de votre copropriété.</p><div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Les 6 pavés</div><p style="font-size:13px;line-height:1.6;margin-bottom:10px"><strong>Cliquez sur un pavé pour ouvrir directement le module correspondant</strong>, filtré sur ce qui est pertinent.</p><div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px;font-size:13px"><div style="display:flex;align-items:center;gap:10px;background:#E6F1FB;border-radius:6px;padding:7px 12px">📅 <strong>Réunions tenues</strong> — celles qui restent à classer, le total figure en dessous</div><div style="display:flex;align-items:center;gap:10px;background:#E1F5EE;border-radius:6px;padding:7px 12px">🎯 <strong>Actions en cours</strong> — ouvre Actions filtré "En cours"</div><div style="display:flex;align-items:center;gap:10px;background:#FAEEDA;border-radius:6px;padding:7px 12px">⚠️ <strong>Travaux à vérifier</strong> — actions avec anomalie financière</div><div style="display:flex;align-items:center;gap:10px;background:#FCEBEB;border-radius:6px;padding:7px 12px">🔧 <strong>NC ouvertes</strong> — ouvre NC filtré "Ouverte"</div><div style="display:flex;align-items:center;gap:10px;background:#FAEEDA;border-radius:6px;padding:7px 12px">🏢 <strong>Prestataires</strong> — nombre total</div><div style="display:flex;align-items:center;gap:10px;background:#E8ECF0;border-radius:6px;padding:7px 12px">📁 <strong>Documents</strong> — nombre total</div></div><div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Les alertes</div><div style="background:#FCEBEB;border-left:4px solid #A32D2D;border-radius:6px;padding:10px 14px;margin-bottom:6px;font-size:13px"><strong style="color:#A32D2D">⏰ Actions en retard</strong> — triées de la plus ancienne. Clic → accès direct à l&#39;action.</div><div style="background:#FCEBEB;border-left:4px solid #A32D2D;border-radius:6px;padding:10px 14px;font-size:13px"><strong style="color:#A32D2D">🔧 NC ouvertes</strong> — les plus graves en premier. Clic → accès direct à la NC.</div>';
   guides['reunions'] = '<p style="font-size:13px;color:#888;margin-bottom:14px">Enregistrez vos CS, AG et entretiens. Rédigez l&#39;ODJ et le CR, listez les présents, suivez les actions décidées.</p><div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Les colonnes</div><div style="display:flex;flex-direction:column;gap:3px;margin-bottom:14px;font-size:12px"><div style="display:flex;gap:8px;padding:5px 10px;background:#E6F1FB;border-radius:5px"><strong style="min-width:90px;color:#378ADD">Date</strong> Date et heure</div><div style="display:flex;gap:8px;padding:5px 10px;background:#E6F1FB;border-radius:5px"><strong style="min-width:90px;color:#378ADD">Titre</strong> Nom de la réunion</div><div style="display:flex;gap:8px;padding:5px 10px;background:#E6F1FB;border-radius:5px"><strong style="min-width:90px;color:#378ADD">Type</strong> CS, AG, entretien...</div><div style="display:flex;gap:8px;padding:5px 10px;background:#E6F1FB;border-radius:5px"><strong style="min-width:90px;color:#378ADD">Statut</strong> Planifiée / Tenue / Classée / Annulée</div><div style="display:flex;gap:8px;padding:5px 10px;background:#E6F1FB;border-radius:5px"><strong style="min-width:90px;color:#378ADD">Prestataires</strong> Ceux que citent ses actions et NC</div><div style="display:flex;gap:8px;padding:5px 10px;background:#E6F1FB;border-radius:5px"><strong style="min-width:90px;color:#378ADD">Présents</strong> Nombre de participants</div><div style="display:flex;gap:8px;padding:5px 10px;background:#E6F1FB;border-radius:5px"><strong style="min-width:90px;color:#378ADD">Actions</strong> Terminées / totales — clic pour voir</div><div style="display:flex;gap:8px;padding:5px 10px;background:#E6F1FB;border-radius:5px"><strong style="min-width:90px;color:#378ADD">PJ</strong> 📎 pièces jointes — clic pour ouvrir</div></div><div style="background:#E6F1FB;border-left:4px solid #378ADD;border-radius:6px;padding:10px 14px;margin-bottom:8px;font-size:13px"><strong>Créer / modifier</strong> — cliquez sur <strong>+ Nouvelle réunion</strong> ou sur une ligne.</div><div style="background:#F8F7F4;border-radius:6px;padding:10px 14px;font-size:13px;margin-bottom:8px"><strong>🖨️ Imprimer</strong> — cochez des réunions → Imprimer sélection. Contient : ordre du jour + compte-rendu + <strong>toutes les actions liées</strong>.</div><div style="background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:6px;padding:10px 14px;font-size:13px"><strong>Classer une réunion</strong> — le statut <strong>Classée</strong> solde la réunion et fait apparaître une date de classement. Il n&#39;est accepté que si <strong>toutes ses actions sont terminées et toutes ses non-conformités clôturées</strong> ; sinon PICS refuse et nomme ce qui reste. Une réunion classée s&#39;imprime toujours en compte rendu.</div>';
   guides['actions'] = '<p style="font-size:13px;color:#888;margin-bottom:14px">Suivez toutes les actions décidées en réunion ou créées directement : travaux, contrats, tâches libres.</p><div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Les 3 types</div><div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px;font-size:13px"><div style="background:#E1F5EE;border-radius:6px;padding:8px 12px"><strong style="color:#085041">Libre</strong> — tâche générale</div><div style="background:#E1F5EE;border-radius:6px;padding:8px 12px"><strong style="color:#085041">Travaux</strong> — suivi devis / ordre de service / facture avec montants</div><div style="background:#E1F5EE;border-radius:6px;padding:8px 12px"><strong style="color:#085041">Contrat</strong> — suivi facturation et anomalies contractuelles</div></div><div style="background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:6px;padding:10px 14px;margin-bottom:8px;font-size:13px">🕐 <strong>Colonne Retard</strong> — le nombre de jours écoulés depuis l&#39;échéance. La liste est triée du plus en retard au moins en retard ; cliquez l&#39;en-tête <strong>Retard</strong> pour revenir au tri par numéro.<br><br>💡 Renseignez la <strong>Date terminée</strong> → le statut passe automatiquement à "Terminée".</div><div style="background:#FAEEDA;border-left:4px solid #BA7517;border-radius:6px;padding:10px 14px;margin-bottom:8px;font-size:13px"><strong style="color:#BA7517">⚠️ Filtre anomalie financière</strong> — travaux avec devis/OS/facture manquants ou écart entre montants.</div><div style="background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:6px;padding:10px 14px;margin-bottom:8px;font-size:13px"><strong>✉️ Fil mails</strong> — chaque échange avec le prestataire est enregistré dans la fiche action.</div><div style="background:#F8F7F4;border-radius:6px;padding:10px 14px;font-size:13px"><strong>🖨️ Rapport d&#39;activité</strong> — généré depuis le bouton Rapport en haut de liste.</div>';
@@ -8786,7 +8801,7 @@ window._guideContenu = function(module) {
   }
   // Colonne du montant dans le fichier « Dépenses » du syndic.
   // Format habituel : DATE ; CLÉ ; TYPE ; LIBELLÉ ; MONTANT (montant = dernière colonne).
-  // Format de clôture Foncia : … ; LIBELLÉ ; A REPARTIR ; TVA ; RECUPERABLE — le montant
+  // Format de clôture du syndic : … ; LIBELLÉ ; A REPARTIR ; TVA ; RECUPERABLE — le montant
   // à retenir est « A REPARTIR », les deux colonnes suivantes sont ignorées.
   // Renvoie l'index de la colonne « A REPARTIR » trouvée dans l'en-tête, sinon -1 (= dernière colonne).
   // Clé de comparaison d'une dépense mémorisée (cases « réglée », contrats choisis) :
@@ -10088,12 +10103,87 @@ window._renderPrestasLiesReunion = function(reunionId) {
 // DÉMO : pas d'alerte de sauvegarde à la fermeture
 window._modifsNonExportees = function() { return false; };
 // DÉMO : effacer les essais et revenir aux données de départ
-window.basculerGuideDemo = function() {
-  var g = document.getElementById('guide-demo'), b = document.getElementById('btn-guide-demo');
-  var cache = g.style.display === 'none';
-  g.style.display = cache ? '' : 'none';
-  b.textContent = cache ? '📖 Masquer le guide' : '📖 Comment essayer ?';
+// DÉMO : guide de démarrage, une étape par écran
+window._ETAPES_GUIDE = [
+ { t: 'Téléchargez les fichiers du syndic', h:
+  '<p>Le syndic met à disposition, sur son site, la liste des dépenses de l’année et le comparatif avec le budget. Voici ceux de la Résidence Les Tilleuls :</p>'
+  + '<div style="display:flex;gap:14px;flex-wrap:wrap;margin:18px 0">'
+  + '<a class="gd-dl" href="depenses_demo.csv" download>📥 Les dépenses de l’année<br><span>depenses_demo.csv</span></a>'
+  + '<a class="gd-dl" href="comparatif_budget_realise_demo.csv" download>📥 Le budget et les dépenses<br><span>comparatif_budget_realise_demo.csv</span></a></div>'
+  + '<div class="voir"><b>Bon à savoir</b><br>Les fichiers arrivent dans votre dossier « Téléchargements ». Vous les choisirez aux étapes suivantes.</div>' },
+ { t: 'Contrôlez les dépenses du syndic', h:
+  '<div class="ou"><b>Où cliquer</b><ol><li>En haut à droite : <span class="btn-pics">💾 Données</span></li>'
+  + '<li>Puis : <span class="btn-pics">💶 Rapprocher les dépenses</span></li><li>Choisissez le fichier <i>depenses_demo.csv</i></li></ol></div>'
+  + '<div class="voir"><b>Ce que vous allez voir</b><ul>'
+  + '<li>En haut, l’encadré <b>« Contrôle des dépenses de l’exercice »</b> : les 136 dépenses du syndic sont toutes examinées.</li>'
+  + '<li>⚠️ Un chantier terminé que le syndic n’a pas encore payé.</li>'
+  + '<li>💡 Les dépenses que le conseil syndical ne suivait pas.</li>'
+  + '<li>🔎 Les petits frais à vérifier, à cocher ✔ un par un.</li></ul></div>' },
+ { t: 'Contrôlez les contrats', h:
+  '<div class="ou"><b>Où cliquer</b><ol><li>Fermez le rapport précédent</li><li>De nouveau : <span class="btn-pics">💾 Données</span></li>'
+  + '<li>Puis : <span class="btn-pics">📑 Rapprocher les contrats</span></li><li>Choisissez le <b>même</b> fichier <i>depenses_demo.csv</i></li></ol></div>'
+  + '<div class="voir"><b>Ce que vous allez voir</b><ul>'
+  + '<li>Le <b>Journal des contrats</b> : pour chaque contrat, ce qui a été facturé comparé au montant prévu.</li>'
+  + '<li>Ici, l’ascenseur et la chaufferie ont été facturés <b>plus que leur contrat</b> : deux questions à poser au syndic.</li>'
+  + '<li>Un abonnement encore facturé par l’<b>ancien prestataire</b> de l’ascenseur.</li></ul></div>' },
+ { t: 'Suivez le budget', h:
+  '<div class="ou"><b>Où cliquer</b><ol><li><span class="btn-pics">💾 Données</span></li>'
+  + '<li>Puis : <span class="btn-pics">📊 Suivi budgétaire</span></li><li>Choisissez le fichier <i>comparatif_budget_realise_demo.csv</i></li></ol></div>'
+  + '<div class="voir"><b>Ce que vous allez voir</b><ul>'
+  + '<li>Le budget voté pour l’année et ce qui est déjà dépensé.</li>'
+  + '<li>Les postes en dépassement, et les dépenses sans budget prévu.</li>'
+  + '<li>Dans le tableau complet, comparez l’an passé et le budget : le ménage est budgété <b>moins</b> que ce qu’il a coûté.</li></ul></div>' },
+ { t: 'Explorez le suivi du conseil syndical', h:
+  '<p>Les onglets sous le titre donnent accès au travail du conseil syndical :</p>'
+  + '<div class="ou"><ul style="margin-top:0">'
+  + '<li><b>Actions</b> : travaux, devis, factures, et depuis combien de jours chaque action attend.</li>'
+  + '<li><b>Réunions</b> : ordre du jour, compte rendu, et ce qui en découle.</li>'
+  + '<li><b>Non-conformités</b> : les problèmes à faire corriger par les prestataires.</li>'
+  + '<li><b>Prestataires</b>, <b>Contacts</b>, <b>Documents</b> : qui intervient, comment le joindre, les contrats.</li></ul></div>'
+  + '<div class="voir"><b>À essayer</b><br>Ouvrez une action, puis cliquez <span class="btn-pics">✉️ Nouveau mail</span> : le courriel au prestataire est déjà rédigé. Chaque liste et chaque rapport s’impriment avec le bouton 🖨.</div>' },
+ { t: 'Essayez sans crainte', h:
+  '<p>Modifiez, ajoutez, supprimez : c’est fait pour ça. Tout reste sur votre ordinateur, rien n’est envoyé.</p>'
+  + '<div class="voir"><b>Pour tout recommencer</b><br>Le bouton <span class="btn-pics" style="background:#BA7517">↺ Remettre la démo à zéro</span>, en haut de la page, redonne les données de départ.</div>'
+  + '<div class="ou"><b>Pour aller plus loin</b><br><span style="font-size:16px;line-height:1.7">La <a href="fiche-formation.html" target="_blank" style="color:#085041;font-weight:700">📘 fiche de formation</a> propose une séance de deux heures, avec des exercices corrigés sur cette démonstration. Ce guide reste accessible par le bouton <span class="btn-pics">📖 Guide de démarrage</span>.</span></div>' }
+];
+window._etapeGuide = 1;
+window.ouvrirGuideDemo = function(n) {
+  var E = window._ETAPES_GUIDE, tot = E.length;
+  n = Math.max(1, Math.min(tot, n || 1)); window._etapeGuide = n;
+  var e = E[n - 1];
+  document.getElementById('gd-corps').innerHTML =
+    '<div style="display:flex;align-items:center;gap:16px;margin-bottom:14px">'
+    + '<div style="flex:0 0 54px;width:54px;height:54px;border-radius:50%;background:#E1F5EE;color:#085041;font-size:28px;font-weight:800;display:flex;align-items:center;justify-content:center">' + n + '</div>'
+    + '<div><div style="font-size:13px;color:#6b7c76;font-weight:600">ÉTAPE ' + n + ' SUR ' + tot + '</div>'
+    + '<div class="gd-titre" style="font-family:Georgia,serif;font-size:25px;font-weight:700;color:#085041">' + e.t + '</div></div></div>' + e.h;
+  var pts = '';
+  for (var i = 1; i <= tot; i++) pts += '<span onclick="window.ouvrirGuideDemo(' + i + ')" title="Étape ' + i + '" style="cursor:pointer;display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 4px;background:' + (i === n ? '#085041' : '#cfd8d4') + '"></span>';
+  document.getElementById('gd-points').innerHTML = pts;
+  document.getElementById('gd-prec').disabled = (n === 1);
+  document.getElementById('gd-suiv').textContent = (n === tot) ? 'Commencer ✓' : 'Suivant →';
+  document.getElementById('guide-demo').style.display = 'flex';
+  document.getElementById('gd-corps').scrollTop = 0;
 };
+window._suivantGuideDemo = function() {
+  if (window._etapeGuide >= window._ETAPES_GUIDE.length) window.fermerGuideDemo();
+  else window.ouvrirGuideDemo(window._etapeGuide + 1);
+};
+window.fermerGuideDemo = function() {
+  document.getElementById('guide-demo').style.display = 'none';
+  try { localStorage.setItem('picsdemo_guide_vu', '1'); } catch (e) {}
+};
+document.addEventListener('keydown', function(ev) {
+  var g = document.getElementById('guide-demo');
+  if (!g || g.style.display === 'none') return;
+  if (ev.key === 'Escape') window.fermerGuideDemo();
+  else if (ev.key === 'ArrowRight') window._suivantGuideDemo();
+  else if (ev.key === 'ArrowLeft' && window._etapeGuide > 1) window.ouvrirGuideDemo(window._etapeGuide - 1);
+});
+// Ouverture automatique à la première visite (et après une remise à zéro)
+window.addEventListener('load', function() {
+  var vu = null; try { vu = localStorage.getItem('picsdemo_guide_vu'); } catch (e) {}
+  if (!vu) setTimeout(function() { window.ouvrirGuideDemo(1); }, 400);
+});
 window.remettreDemoAZero = function() {
   try {
     Object.keys(localStorage).filter(function(k) { return k.indexOf('picsdemo_') === 0; })
